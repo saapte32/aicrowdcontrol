@@ -1,0 +1,68 @@
+
+{% load static %}
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12"  style="max-width:100%;" >
+                  <div class="card" id="violationcard">
+                    <div class="card-header card-header-warning">
+                      <h4 class="card-title">Violations Status</h4>
+                      <!--<p class="card-category">In Maharashtra</p>-->
+                    </div>
+                    <div class="card-body table  table-responsive"  style="width:100%;">
+
+                        <!--<div class="datePickerContainer">-->
+                          <!--<div>From</div>-->
+                          <!--<input type="text" id="fromDate1">-->
+                          <!--<div>To</div>-->
+                          <!--<input type="text" id="toDate1">-->
+                        <!--</div>-->
+                      <table class="table table-hover table-responsive-sm table-responsive-xs" id="violationsstatusid" style="width:100%;font-size:11px;">
+                        <thead class="text-warning">
+                          <th>#</th>
+                          <th>Date</th>
+                          <th>Face Mask</th>
+                          <th>Social Distance</th>
+                          <th>Total Violations</th>
+                        </thead>
+                        <tbody>
+
+                          {%for violation in violations%}
+
+                            <tr>
+                              <td>{{forloop.counter}}</td>
+                              <td>{{violation.Date_Time_frm}}</td>
+                              <td class="mask"><a href="">{{violation.FaceMask}}</a></td>
+                              <td class="sd"><a href="">{{violation.SocialDistance}}</a></td>
+                              <td>{{violation.totalViolations}}</td>
+
+                            </tr>
+
+
+                          {%endfor%}
+
+
+                        </tbody>
+                      </table>
+                      {% if violations.has_other_pages %}
+          <ul class="pagination pagination-sm" style="max-width: 100%;justify-content: center;margin-top: 30px;">
+            {% if violations.has_previous %}
+              <li class="page-item"><a class="page-link" style="cursor: pointer;" onclick='return next_org_data(page={{ violations.previous_page_number }},{{request.session.cameraID}});'>&laquo;</a></li>
+            {% else %}
+              <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+            {% endif %}
+            {% for i in violations.paginator.page_range %}
+              {% if violations.number == i %}
+                <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" style="cursor: pointer;" onclick='return next_org_data(page={{ i }},{{request.session.cameraID}});'>{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if violations.has_next %}
+              <li class="page-item"><a class="page-link" style="cursor: pointer;"  onclick='return next_org_data(page={{violations.next_page_number }},{{request.session.cameraID}});'>&raquo;</a></li>
+            {% else %}
+              <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            {% endif %}
+          </ul>
+          {% endif %}
+                    </div>
+                  </div>
+                </div>

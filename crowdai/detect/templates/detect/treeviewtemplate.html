@@ -1,0 +1,42 @@
+
+{% load static %}
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+ <ul id="leftpanelid" class="treeview-red">
+     <li><span>CME</span>
+          <ul>
+        {% for menu in menu_list %}
+            {%for item in menu %}
+
+
+                {%if item.name %}
+     <li> {{ item.name }}
+                {% endif %}
+
+                {% if item.submenus|length %}
+
+                        {%for cameras in item.submenus %}
+                        <ul>
+                            {%for cameraitem in cameras %}
+
+
+                                    <!--{%if cameraitem.name %}-->
+                            <li><a href="#" id="{{cameraitem.elemid}}"> {{cameraitem.name}}</a></li>
+
+                                    <!--{% endif %}-->
+
+                              {% endfor %}
+                        </ul>
+                        {% endfor %}
+
+                {% endif %}
+     </li>
+        {% endfor %}
+        {% endfor %}
+        </ul>
+
+
+        <!--<div><button id="seelive" type="button" class="btn btn-primary" >Live</button></div>-->
+         <!--<div>  <input type="checkbox" name="chkanalysis" value="analysis">-->
+                <!--<label for="chkanalysis"> Mute Alarm</label><br></div>-->
+ </li>
+ </ul>
